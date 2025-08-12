@@ -1,0 +1,557 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		596BA25F2E49F7F200944D32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 596BA2492E49F7F100944D32 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 596BA2502E49F7F100944D32;
+			remoteInfo = "EzyCook Recipe App";
+		};
+		596BA2692E49F7F200944D32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 596BA2492E49F7F100944D32 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 596BA2502E49F7F100944D32;
+			remoteInfo = "EzyCook Recipe App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		596BA2512E49F7F100944D32 /* EzyCook Recipe App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "EzyCook Recipe App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		596BA25E2E49F7F200944D32 /* EzyCook Recipe AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EzyCook Recipe AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		596BA2682E49F7F200944D32 /* EzyCook Recipe AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EzyCook Recipe AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		596BA2532E49F7F100944D32 /* EzyCook Recipe App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "EzyCook Recipe App";
+			sourceTree = "<group>";
+		};
+		596BA2612E49F7F200944D32 /* EzyCook Recipe AppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "EzyCook Recipe AppTests";
+			sourceTree = "<group>";
+		};
+		596BA26B2E49F7F200944D32 /* EzyCook Recipe AppUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "EzyCook Recipe AppUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		596BA24E2E49F7F100944D32 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		596BA25B2E49F7F200944D32 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		596BA2652E49F7F200944D32 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		596BA2482E49F7F100944D32 = {
+			isa = PBXGroup;
+			children = (
+				596BA2532E49F7F100944D32 /* EzyCook Recipe App */,
+				596BA2612E49F7F200944D32 /* EzyCook Recipe AppTests */,
+				596BA26B2E49F7F200944D32 /* EzyCook Recipe AppUITests */,
+				596BA2522E49F7F100944D32 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		596BA2522E49F7F100944D32 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				596BA2512E49F7F100944D32 /* EzyCook Recipe App.app */,
+				596BA25E2E49F7F200944D32 /* EzyCook Recipe AppTests.xctest */,
+				596BA2682E49F7F200944D32 /* EzyCook Recipe AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		596BA2502E49F7F100944D32 /* EzyCook Recipe App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 596BA2722E49F7F200944D32 /* Build configuration list for PBXNativeTarget "EzyCook Recipe App" */;
+			buildPhases = (
+				596BA24D2E49F7F100944D32 /* Sources */,
+				596BA24E2E49F7F100944D32 /* Frameworks */,
+				596BA24F2E49F7F100944D32 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				596BA2532E49F7F100944D32 /* EzyCook Recipe App */,
+			);
+			name = "EzyCook Recipe App";
+			packageProductDependencies = (
+			);
+			productName = "EzyCook Recipe App";
+			productReference = 596BA2512E49F7F100944D32 /* EzyCook Recipe App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		596BA25D2E49F7F200944D32 /* EzyCook Recipe AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 596BA2752E49F7F200944D32 /* Build configuration list for PBXNativeTarget "EzyCook Recipe AppTests" */;
+			buildPhases = (
+				596BA25A2E49F7F200944D32 /* Sources */,
+				596BA25B2E49F7F200944D32 /* Frameworks */,
+				596BA25C2E49F7F200944D32 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				596BA2602E49F7F200944D32 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				596BA2612E49F7F200944D32 /* EzyCook Recipe AppTests */,
+			);
+			name = "EzyCook Recipe AppTests";
+			packageProductDependencies = (
+			);
+			productName = "EzyCook Recipe AppTests";
+			productReference = 596BA25E2E49F7F200944D32 /* EzyCook Recipe AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		596BA2672E49F7F200944D32 /* EzyCook Recipe AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 596BA2782E49F7F200944D32 /* Build configuration list for PBXNativeTarget "EzyCook Recipe AppUITests" */;
+			buildPhases = (
+				596BA2642E49F7F200944D32 /* Sources */,
+				596BA2652E49F7F200944D32 /* Frameworks */,
+				596BA2662E49F7F200944D32 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				596BA26A2E49F7F200944D32 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				596BA26B2E49F7F200944D32 /* EzyCook Recipe AppUITests */,
+			);
+			name = "EzyCook Recipe AppUITests";
+			packageProductDependencies = (
+			);
+			productName = "EzyCook Recipe AppUITests";
+			productReference = 596BA2682E49F7F200944D32 /* EzyCook Recipe AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		596BA2492E49F7F100944D32 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					596BA2502E49F7F100944D32 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					596BA25D2E49F7F200944D32 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 596BA2502E49F7F100944D32;
+					};
+					596BA2672E49F7F200944D32 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 596BA2502E49F7F100944D32;
+					};
+				};
+			};
+			buildConfigurationList = 596BA24C2E49F7F100944D32 /* Build configuration list for PBXProject "EzyCook Recipe App" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 596BA2482E49F7F100944D32;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 596BA2522E49F7F100944D32 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				596BA2502E49F7F100944D32 /* EzyCook Recipe App */,
+				596BA25D2E49F7F200944D32 /* EzyCook Recipe AppTests */,
+				596BA2672E49F7F200944D32 /* EzyCook Recipe AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		596BA24F2E49F7F100944D32 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		596BA25C2E49F7F200944D32 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		596BA2662E49F7F200944D32 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		596BA24D2E49F7F100944D32 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		596BA25A2E49F7F200944D32 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		596BA2642E49F7F200944D32 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		596BA2602E49F7F200944D32 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 596BA2502E49F7F100944D32 /* EzyCook Recipe App */;
+			targetProxy = 596BA25F2E49F7F200944D32 /* PBXContainerItemProxy */;
+		};
+		596BA26A2E49F7F200944D32 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 596BA2502E49F7F100944D32 /* EzyCook Recipe App */;
+			targetProxy = 596BA2692E49F7F200944D32 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		596BA2702E49F7F200944D32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		596BA2712E49F7F200944D32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		596BA2732E49F7F200944D32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "App needs access to your calendar to schedule meals.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nibm.EzyCook-Recipe-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		596BA2742E49F7F200944D32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "App needs access to your calendar to schedule meals.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nibm.EzyCook-Recipe-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		596BA2762E49F7F200944D32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nibm.EzyCook-Recipe-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EzyCook Recipe App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EzyCook Recipe App";
+			};
+			name = Debug;
+		};
+		596BA2772E49F7F200944D32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nibm.EzyCook-Recipe-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EzyCook Recipe App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EzyCook Recipe App";
+			};
+			name = Release;
+		};
+		596BA2792E49F7F200944D32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nibm.EzyCook-Recipe-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "EzyCook Recipe App";
+			};
+			name = Debug;
+		};
+		596BA27A2E49F7F200944D32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nibm.EzyCook-Recipe-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "EzyCook Recipe App";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		596BA24C2E49F7F100944D32 /* Build configuration list for PBXProject "EzyCook Recipe App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				596BA2702E49F7F200944D32 /* Debug */,
+				596BA2712E49F7F200944D32 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		596BA2722E49F7F200944D32 /* Build configuration list for PBXNativeTarget "EzyCook Recipe App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				596BA2732E49F7F200944D32 /* Debug */,
+				596BA2742E49F7F200944D32 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		596BA2752E49F7F200944D32 /* Build configuration list for PBXNativeTarget "EzyCook Recipe AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				596BA2762E49F7F200944D32 /* Debug */,
+				596BA2772E49F7F200944D32 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		596BA2782E49F7F200944D32 /* Build configuration list for PBXNativeTarget "EzyCook Recipe AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				596BA2792E49F7F200944D32 /* Debug */,
+				596BA27A2E49F7F200944D32 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 596BA2492E49F7F100944D32 /* Project object */;
+}
