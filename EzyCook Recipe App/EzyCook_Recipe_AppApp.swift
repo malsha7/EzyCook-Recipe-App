@@ -11,7 +11,8 @@ import SwiftUI
 struct EzyCook_Recipe_AppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            //ContentView()
+            SplashScreenView()
         }
     }
 }
