@@ -26,7 +26,7 @@ struct PrivacySection: View {
             }
             
             Text(content)
-                .font(.sfProRegular(size: 14))
+                .font(.sfProRegular(size: 12))
                 .foregroundColor(.appWhite.opacity(0.8))
                 .lineSpacing(2)
                 .padding(.leading, 28)

@@ -16,7 +16,7 @@ struct HelpGuidelinesView: View {
             // top navigation row
             HStack {
                 Button(action: {
-                    // back to the previous screen
+                    // back to the settings screen
                     presentationMode.wrappedValue.dismiss()
                 }) {
                     HStack(spacing: 4) {
