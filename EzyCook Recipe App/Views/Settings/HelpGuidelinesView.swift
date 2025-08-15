@@ -88,7 +88,7 @@ struct HelpGuidelinesView: View {
                             )
                         }
                         
-                        // Support Section
+                        // support section
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Need Help?")
                                 .font(.sfProBold(size: 14))
