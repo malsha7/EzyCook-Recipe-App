@@ -38,24 +38,40 @@ struct RecipeListView: View {
                 name: "Egg Fried Noodles",
                 time: "20min",
                 tools: "Microwave",
+                ingredients: [
+                            Ingredient(name: "Noodles", quantity: "200g"),
+                            Ingredient(name: "Egg", quantity: "2")
+                        ],
                 imageName: "egg_fried_noodles"
             ),
             Recipe(
                 name: "Chicken Rice",
                 time: "30min",
                 tools: "Gas Cooker",
+                ingredients: [
+                            Ingredient(name: "Noodles", quantity: "200g"),
+                            Ingredient(name: "Egg", quantity: "2")
+                        ],
                 imageName: "chicken_rice"
             ),
             Recipe(
                 name: "Quick Pasta",
                 time: "15min",
                 tools: "Gas Cooker",
+                ingredients: [
+                            Ingredient(name: "Noodles", quantity: "200g"),
+                            Ingredient(name: "Egg", quantity: "2")
+                        ],
                 imageName: "quick_pasta"
             ),
             Recipe(
                 name: "Microwave Mug Cake",
                 time: "5min",
                 tools: "Microwave",
+                ingredients: [
+                            Ingredient(name: "Noodles", quantity: "200g"),
+                            Ingredient(name: "Egg", quantity: "2")
+                        ],
                 imageName: "mug_cake"
             )
         ]
