@@ -53,7 +53,7 @@ struct AuthTextField: View {
                 Button(action: {
                     showPassword.toggle()
                 }) {
-                    Image(systemName: showPassword ? "eye" : "eye_lock.fill")
+                    Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
                         .foregroundColor(.appWhite)
                         .frame(width: 18, height: 18)
                 }
@@ -153,7 +153,7 @@ struct AuthTextFieldStyled: View {
                 Button(action: {
                     showPassword.toggle()
                 }) {
-                    Image(systemName: showPassword ? "eye" : "eye_lock")
+                    Image(systemName: showPassword ? "eye.fill" : "eye.slash.fill")
                         .foregroundColor(iconColor)
                         .frame(width: 20, height: 20)
                 }
