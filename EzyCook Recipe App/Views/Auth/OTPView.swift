@@ -160,6 +160,7 @@ struct OTPView: View {
         .fullScreenCover(isPresented: $showResetPassword) {
             ResetPasswordView()
         }
+        .navigationBarBackButtonHidden(true)
         
     }
     
