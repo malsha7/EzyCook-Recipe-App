@@ -13,12 +13,14 @@ struct SignInView: View {
     @State private var password = ""
     @State private var isAnimating = false
     @State private var showAlert = false
+    @State private var showHome = false
     @State private var alertMessage = ""
     @State private var showFaceID = false
     @State private var showSignUp = false
     @State private var showForgotPassword = false
     @State private var validationErrors: [String: String] = [:]
     
+    @EnvironmentObject var userVM: UserViewModel
     
     
     var body: some View {
@@ -93,7 +95,7 @@ struct SignInView: View {
                         .frame(maxWidth: 320)
                         .padding(.top, 8)
                         
-                    //sign in
+                       //sign in
                         LiquidGlassButton(
                             title: "Sign In",
                             width: 227,
@@ -180,9 +182,16 @@ struct SignInView: View {
             isAnimating = true
         }
         .alert("Sign In", isPresented: $showAlert) {
-            Button("OK", role: .cancel) { }
+            Button("OK", role: .cancel) {
+                
+                showHome = true
+            }
         } message: {
             Text(alertMessage)
+        }
+        .fullScreenCover(isPresented: $showHome) {
+            HomeView()
+                .environmentObject(userVM) // pass if needed
         }
         .fullScreenCover(isPresented: $showFaceID) {
             FaceIDScreenView()
@@ -208,9 +217,21 @@ struct SignInView: View {
             return
         }
         
-        // if validation passes, proceed with sign in
-        alertMessage = "Welcome back! Sign in successful."
-        showAlert = true
+        //connect with usermodel through backend
+        
+        userVM.login(username: username, password: password) { success in
+            if success {
+                print("Signin successful")
+                alertMessage = "Signin successfully!"
+                showAlert = true
+               
+            } else {
+                print("Signin failed")
+                alertMessage = "Error: Signin failed"
+                showAlert = true
+            }
+        }
+       
     }
     
     private func handleForgotPassword() {

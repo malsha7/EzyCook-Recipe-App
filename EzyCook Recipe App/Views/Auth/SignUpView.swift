@@ -15,12 +15,14 @@ struct SignUpView: View {
     @State private var confirmPassword = ""
     @State private var isAnimating = false
     @State private var showAlert = false
+    @State private var showHome = false
     @State private var alertMessage = ""
     @State private var showSignIn = false
     @State private var showPrivacyPolicy = false
     @State private var validationErrors: [String: String] = [:]
     @Environment(\.dismiss) private var dismiss
     
+    @EnvironmentObject var userVM: UserViewModel
     
     var body: some View {
         ZStack {
@@ -163,9 +165,15 @@ struct SignUpView: View {
                 isAnimating = true
             }
             .alert("Sign Up", isPresented: $showAlert) {
-                Button("OK", role: .cancel) { }
+                Button("OK", role: .cancel) {
+                    showHome = true
+                }
             } message: {
                 Text(alertMessage)
+            }
+            .fullScreenCover(isPresented: $showHome) {
+                HomeView()
+                    .environmentObject(userVM) // pass if needed
             }
         }
     }
@@ -187,9 +195,19 @@ struct SignUpView: View {
             return
         }
         
-        // if validation passes, proceed with sign up
-        alertMessage = "Account created successfully!"
-        showAlert = true
+        //connect with usermodel via backend
+        userVM.signup(username: username, email: email, password: password) { success in
+            if success {
+                print("Signup successful")
+                alertMessage = "Account created successfully!"
+                showAlert = true
+               
+            } else {
+                print("Signup failed")
+                alertMessage = "Error: Signup failed"
+                showAlert = true
+            }
+        }
     }
     
 }
