@@ -58,7 +58,7 @@ struct ResetPasswordView: View {
                         VStack(spacing: 20) {
                             
                             VStack(spacing: 8) {
-                                AuthTextField.confirmPassword(text: $newPassword)
+                                AuthTextField.newPassword(text: $newPassword)
                                 
                                 // new password error message
                                 if let newPasswordError = validationErrors["newPassword"] {

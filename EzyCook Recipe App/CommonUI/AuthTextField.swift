@@ -199,6 +199,16 @@ extension AuthTextField {
         )
     }
     
+    // new password
+    static func newPassword(text: Binding<String>) -> AuthTextField {
+        AuthTextField(
+            iconName: "password",
+            placeholder: "Enter Your  New Password",
+            text: text,
+            isSecure: true
+        )
+    }
+    
     // confirm password
     static func confirmPassword(text: Binding<String>) -> AuthTextField {
         AuthTextField(
@@ -296,6 +306,7 @@ struct AuthTextFieldExamples: View {
     @State private var password = ""
     @State private var email = ""
     @State private var fullName = ""
+    @State private var newPassword = ""
     @State private var confirmPassword = ""
     
     var body: some View {
@@ -304,6 +315,7 @@ struct AuthTextFieldExamples: View {
             AuthTextField.username(text: $username)
             AuthTextField.email(text: $email)
             AuthTextField.password(text: $password)
+            AuthTextField.newPassword(text: $newPassword)
             AuthTextField.confirmPassword(text: $confirmPassword)
             AuthTextField.fullName(text: $fullName)
             
