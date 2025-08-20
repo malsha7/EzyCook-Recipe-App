@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct OTPView: View {
-    
+    let email: String
     @State private var otpCode = ["", "", "", ""]
     @State private var isAnimating = false
     @State private var showAlert = false
@@ -17,7 +17,7 @@ struct OTPView: View {
     @State private var validationErrors: [String: String] = [:]
     @FocusState private var focusedField: Int?
     @Environment(\.dismiss) private var dismiss
-    
+    @EnvironmentObject var userVM: UserViewModel
     
     var body: some View {
         
@@ -158,7 +158,7 @@ struct OTPView: View {
             Text(alertMessage)
         }
         .fullScreenCover(isPresented: $showResetPassword) {
-            ResetPasswordView()
+            ResetPasswordView(email: email, otpCode: otpCode.joined())
         }
         .navigationBarBackButtonHidden(true)
         
@@ -183,12 +183,16 @@ struct OTPView: View {
     }
     
     private func handleResendOTP() {
-        alertMessage = "OTP code has been resent to your email address."
-        showAlert = true
-        
-        // clear current otp
-        otpCode = ["", "", "", ""]
-        focusedField = 0
+        userVM.sendOtp(email: email) { success in
+                    if success {
+                        alertMessage = userVM.successMessage ?? "OTP resent!"
+                    } else {
+                        alertMessage = userVM.errorMessage ?? "Failed to resend OTP."
+                    }
+                    showAlert = true
+                    otpCode = ["", "", "", ""]
+                    focusedField = 0
+                }
     }
     
     private func handleContinue() {
@@ -198,21 +202,19 @@ struct OTPView: View {
         // validate otp
         let fullOTP = otpCode.joined()
         
-        if fullOTP.isEmpty || fullOTP.count < 4 {
-            validationErrors["otp"] = "Please enter the complete OTP code"
-            return
-        }
+//        if fullOTP.isEmpty || fullOTP.count < 4 {
+//            validationErrors["otp"] = "Please enter the complete OTP code"
+//            return
+//        }
         
-        // checking if all fields contain digits
-        for code in otpCode {
-            if code.isEmpty || !code.allSatisfy({ $0.isNumber }) {
-                validationErrors["otp"] = "Please enter a valid OTP code"
-                return
-            }
-        }
+        guard fullOTP.count == 4, fullOTP.allSatisfy({ $0.isNumber }) else {
+                 validationErrors["otp"] = "Please enter the complete OTP code"
+                 return
+             }
+             
+             // navigate to ResetPasswordView
+             showResetPassword = true
         
-        // if validation passes, navigate to reset password
-        showResetPassword = true
     }
 }
 
@@ -255,5 +257,6 @@ struct OTPInputField: View {
 
 
 #Preview {
-    OTPView()
+    OTPView(email: "malsha@gmail.com")
+        .environmentObject(UserViewModel())
 }

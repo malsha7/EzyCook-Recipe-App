@@ -16,6 +16,7 @@ struct ForgotPasswordView: View {
     @State private var alertMessage = ""
     @State private var validationErrors: [String: String] = [:]
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var userVM: UserViewModel
     
     var body: some View {
         NavigationStack {
@@ -116,7 +117,7 @@ struct ForgotPasswordView: View {
             }
             
             .navigationDestination(isPresented: $navigateToOTP) {
-                OTPView()
+                OTPView(email: email)
             }
             
             .onChange(of: navigateToOTP) { oldValue, newValue in
@@ -138,10 +139,15 @@ struct ForgotPasswordView: View {
                 validationErrors = errors
                 return
             }
-            
-            // if validation passes, proceed with sending reset email
-            alertMessage = "Password reset OTP passcode have been sent to your email address."
-            showAlert = true
+            // connect backend through ViewModel
+                   userVM.sendOtp(email: email) { success in
+                       if success {
+                           alertMessage = userVM.successMessage ?? "OTP sent successfully!"
+                       } else {
+                           alertMessage = userVM.errorMessage ?? "Something went wrong."
+                       }
+                       showAlert = true
+                   }
         }
     }
     

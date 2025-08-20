@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ResetPasswordView: View {
     
+    let email: String       
+    let otpCode: String
     @State private var newPassword = ""
     @State private var confirmPassword = ""
     @State private var isAnimating = false
@@ -17,6 +19,8 @@ struct ResetPasswordView: View {
     @State private var alertMessage = ""
     @State private var validationErrors: [String: String] = [:]
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var userVM: UserViewModel
+    
     
     var body: some View {
        
@@ -123,7 +127,9 @@ struct ResetPasswordView: View {
         .alert("Reset Password", isPresented: $showAlert) {
             Button("OK", role: .cancel) {
                 
-                navigateToSignIn = true
+                if alertMessage.localizedCaseInsensitiveContains("success") {
+                    navigateToSignIn = true
+                              }
             }
         } message: {
             Text(alertMessage)
@@ -145,14 +151,19 @@ struct ResetPasswordView: View {
             validationErrors = errors
             return
         }
-        
-        // if validation passes, proceed with password reset
-        alertMessage = "Password has been reset successfully! Please sign in with your new password."
-        showAlert = true
+        userVM.resetPassword(email: email, otp: otpCode, newPassword: newPassword) { success in
+                  if success {
+                      alertMessage = userVM.successMessage ?? "Password reset successful" 
+                  } else {
+                      alertMessage = userVM.errorMessage ?? "Failed to reset password"
+                  }
+                  showAlert = true
+        }
     }
 
 }
 
 #Preview {
-    ResetPasswordView()
+    ResetPasswordView(email:"malsha@gmail.com", otpCode: "1234")
+        .environmentObject(UserViewModel())
 }
