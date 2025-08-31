@@ -224,43 +224,61 @@ struct ProfileView: View {
     
     //save profile function
     private func saveProfile() {
-        // clear previous errors
-        validationErrors.removeAll()
-        
-        // validate the all fields
-        let errors = ValidationHelper.validateAllFields(
-            name: name,
-            email: email,
-            username: username,
-            phoneNumber: phoneNumber
-        )
-        
-        if !errors.isEmpty {
-            validationErrors = errors
-            return
+          
+            print(" ProfileView: saveProfile called")
+            print(" ProfileView: profileImage at save time: \(profileImage != nil ? "present (\(profileImage!.size))" : "nil")")
+            
+           
+            validationErrors.removeAll()
+            
+            let errors = ValidationHelper.validateAllFields(
+                name: name,
+                email: email,
+                username: username,
+                phoneNumber: phoneNumber
+            )
+            
+            if !errors.isEmpty {
+                validationErrors = errors
+                return
+            }
+            
+            print("Starting profile save...")
+            
+          
+            let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+            let trimmedUsername = username.trimmingCharacters(in: .whitespacesAndNewlines)
+            let trimmedEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
+            let trimmedPhone = phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            let nameToSave = trimmedName.isEmpty ? nil : trimmedName
+            let usernameToSave = trimmedUsername.isEmpty ? nil : trimmedUsername
+            let emailToSave = trimmedEmail.isEmpty ? nil : trimmedEmail
+            let phoneToSave = trimmedPhone.isEmpty ? nil : phoneNumber
+            
+            print(" Final values being sent:")
+            print("  - name: \(nameToSave ?? "nil")")
+            print("  - username: \(usernameToSave ?? "nil")")
+            print("  - email: \(emailToSave ?? "nil")")
+            print("  - phone: \(phoneToSave ?? "nil")")
+            print("  - profileImage: \(profileImage != nil ? "present" : "nil")")
+            
+            userVM.updateProfile(
+                name: nameToSave,
+                username: usernameToSave,
+                email: emailToSave,
+                phoneNumber: phoneToSave,
+                profileImage: profileImage
+            ) { success in
+                if success {
+                    self.showSuccessAlert = true
+                    print(" Profile save completed successfully!")
+                } else {
+                    print(" Profile save failed")
+                    print("   Error: \(self.userVM.errorMessage ?? "Unknown error")")
+                }
+            }
         }
-        
-        // save to UserDefaults ()
-        UserDefaults.standard.set(name.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "profile_name")
-        UserDefaults.standard.set(email.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "profile_email")
-        UserDefaults.standard.set(username.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "profile_username")
-        UserDefaults.standard.set(phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines), forKey: "profile_phone")
-        
-        // save profile image
-        if let image = profileImage,
-           let imageData = image.jpegData(compressionQuality: 0.8) {
-            UserDefaults.standard.set(imageData, forKey: "profile_image")
-        }
-        
-        print("Profile saved successfully!")
-        print("Name: \(name.trimmingCharacters(in: .whitespacesAndNewlines))")
-        print("Email: \(email.trimmingCharacters(in: .whitespacesAndNewlines))")
-        print("Username: \(username.trimmingCharacters(in: .whitespacesAndNewlines))")
-        print("Phone: \(phoneNumber.trimmingCharacters(in: .whitespacesAndNewlines))")
-        
-        // success alert
-        showSuccessAlert = true
-    }
 }
 
 #Preview {

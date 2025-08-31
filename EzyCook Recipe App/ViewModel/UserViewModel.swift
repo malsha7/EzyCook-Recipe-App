@@ -128,23 +128,24 @@ class UserViewModel: ObservableObject {
     }
     
     // edit profile
-    func updateProfile(name: String?, username: String?, email: String?, phoneNumber: String?, profileImage: UIImage?, completion: @escaping (Bool) -> Void) {
+    func updateProfile(
+        name: String?,
+        username: String?,
+        email: String?,
+        phoneNumber: String?,
+        profileImage: UIImage?,
+        completion: @escaping (Bool) -> Void
+    ) {
         guard let token = authToken else { return }
-        
+
         var profileData: [String: Any] = [:]
         if let name = name { profileData["name"] = name }
         if let username = username { profileData["username"] = username }
         if let email = email { profileData["email"] = email }
         if let phoneNumber = phoneNumber { profileData["phoneNumber"] = phoneNumber }
-        
-        // convert UIImage to base64
-        if let image = profileImage,
-           let imageData = image.jpegData(compressionQuality: 0.8) {
-            profileData["profileImage"] = imageData.base64EncodedString()
-        }
-        
+
         isLoading = true
-        UserService.shared.updateProfile(token: token, profile: profileData) { [weak self] result in
+        UserService.shared.updateProfile(token: token, profile: profileData, image: profileImage) { [weak self] result in
             DispatchQueue.main.async {
                 self?.isLoading = false
                 switch result {
@@ -158,6 +159,7 @@ class UserViewModel: ObservableObject {
             }
         }
     }
+
     
     // logout
     func logout() {
