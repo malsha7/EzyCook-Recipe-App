@@ -172,7 +172,7 @@ struct SignUpView: View {
                 Text(alertMessage)
             }
             .fullScreenCover(isPresented: $showHome) {
-                HomeView()
+                ProfileView()
                     .environmentObject(userVM) // pass if needed
             }
         }

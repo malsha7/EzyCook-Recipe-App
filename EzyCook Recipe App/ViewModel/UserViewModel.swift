@@ -107,7 +107,11 @@ class UserViewModel: ObservableObject {
     
     // get profile
     func getProfile() {
-        guard let token = authToken else { return }
+        guard let token = authToken else {
+            
+            errorMessage = "No authentication token"
+            
+            return }
         isLoading = true
         UserService.shared.getProfile(token: token) { [weak self] result in
             DispatchQueue.main.async {
@@ -115,6 +119,7 @@ class UserViewModel: ObservableObject {
                 switch result {
                 case .success(let profile):
                     self?.profile = profile
+                    self?.errorMessage = nil 
                 case .failure(let error):
                     self?.errorMessage = error.localizedDescription
                 }

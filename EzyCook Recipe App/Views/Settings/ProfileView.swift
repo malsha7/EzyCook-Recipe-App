@@ -14,10 +14,14 @@ struct ProfileView: View {
     @State private var username: String = ""
     @State private var phoneNumber: String = ""
     @State private var profileImage: UIImage?
-    
+    @State private var selectedImage: UIImage? = nil
+    var initialUsername: String? = nil
+    var initialEmail: String? = nil
     // validation states
     @State private var validationErrors: [String: String] = [:]
     @State private var showSuccessAlert = false
+    @StateObject private var userVM = UserViewModel()
+   
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -53,8 +57,17 @@ struct ProfileView: View {
                 .frame(height: 1)
             
             // profile image picker
-            ImagePicker(selectedImage: $profileImage)
-            
+            ImagePicker(selectedImage: $profileImage,
+            imageSize: 100)
+                            .onChange(of: profileImage) { newImage in
+                                if let image = newImage {
+                                    print(" ProfileView: profileImage binding updated - Size: \(image.size)")
+                                    print(" ProfileView: Image dimensions: \(image.size.width) x \(image.size.height)")
+                                    print(" ProfileView: Image scale: \(image.scale)")
+                                } else {
+                                    print(" ProfileView: profileImage binding cleared")
+                                }
+                            }
            
             VStack(spacing: 20) {
                 
@@ -106,6 +119,11 @@ struct ProfileView: View {
                 fontSize: 17,
                 fontWeight: .medium
             ) {
+                print("ProfileView: Current profileImage: \(profileImage != nil ? "present" : "nil")")
+                                
+                if let image = profileImage {
+                    print(" ProfileView: Image to save - Size: \(image.size)")
+                }
                 saveProfile()
             }
             .padding(.bottom, 70)
@@ -120,18 +138,87 @@ struct ProfileView: View {
         .onAppear {
             loadProfile()
         }
+        .onReceive(userVM.$profile) { profile in
+            handleProfileLoaded(profile: profile)
+        }
     }
     
     // load profile Data
     private func loadProfile() {
-        name = UserDefaults.standard.string(forKey: "profile_name") ?? ""
-        email = UserDefaults.standard.string(forKey: "profile_email") ?? ""
-        username = UserDefaults.standard.string(forKey: "profile_username") ?? ""
-        phoneNumber = UserDefaults.standard.string(forKey: "profile_phone") ?? ""
+        print("\nProfileView: Starting loadProfile")
         
-        // load profile image
-        if let imageData = UserDefaults.standard.data(forKey: "profile_image") {
-            profileImage = UIImage(data: imageData)
+        if let initialEmail = initialEmail {
+            email = initialEmail
+            print("Set initial email: \(initialEmail)")
+        }
+        
+        if let initialUsername = initialUsername {
+            username = initialUsername
+            print(" Set initial username: \(initialUsername)")
+        }
+        
+        print(" Fetching profile from database")
+        userVM.getProfile()
+    }
+    
+    private func handleProfileLoaded(profile: UserProfile?) {
+        guard let profile = profile else { return }
+        
+        print(" Profile loaded from database")
+        
+      
+        self.email = profile.email
+        self.username = profile.username ?? ""
+        self.name = profile.name ?? ""
+        self.phoneNumber = profile.phoneNumber ?? ""
+        
+     
+        if let imageUrl = profile.profileImage, !imageUrl.isEmpty {
+            print(" Loading existing image from: \(imageUrl)")
+            loadProfileImage(from: imageUrl)
+        } else {
+            print(" No existing profile image")
+            self.profileImage = nil
+        }
+    }
+    
+    private func loadProfileImage(from urlString: String) {
+        guard let url = URL(string: urlString) else {
+            print(" Invalid image URL: \(urlString)")
+            return
+        }
+        
+        print(" Starting image download")
+        
+        Task {
+            do {
+                let (data, response) = try await URLSession.shared.data(from: url)
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print(" Image response status: \(httpResponse.statusCode)")
+                    
+                    guard httpResponse.statusCode == 200 else {
+                        print(" Image download failed with status: \(httpResponse.statusCode)")
+                        return
+                    }
+                }
+                
+                guard let image = UIImage(data: data) else {
+                    print(" Invalid image data received")
+                    return
+                }
+                
+                await MainActor.run {
+                    self.profileImage = image
+                    print(" Profile image loaded successfully")
+                }
+                
+            } catch {
+                print(" Error loading image: \(error.localizedDescription)")
+                await MainActor.run {
+                    // self.profileImage = UIImage(systemName: "person.circle")
+                }
+            }
         }
     }
     

@@ -24,6 +24,7 @@ struct ImagePicker: View {
     var body: some View {
         VStack(spacing: 16) {
             Button(action: {
+                print("ImagePicker: Button tapped, showing image picker")
                 showImagePicker = true
             }) {
                 ZStack {
@@ -75,10 +76,31 @@ struct ImagePicker: View {
                     }
                 }
             }
+            
+            if selectedImage != nil {
+                Text("Image selected: \(Int(selectedImage!.size.width))x\(Int(selectedImage!.size.height))")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
         }
         .padding(.top, 10)
         .sheet(isPresented: $showImagePicker) {
+            print(" ImagePicker: Sheet dismissed")
+            
+            if selectedImage != nil {
+                print("ImagePicker: Image was selected during picker session")
+            } else {
+                print("ImagePicker: No image was selected or selection failed")
+            }
+        } content: {
             ImagePickerController(image: $selectedImage)
+        }
+        .onChange(of: selectedImage) { newImage in
+            if let image = newImage {
+                print("ImagePicker: selectedImage changed - New size: \(image.size)")
+            } else {
+                print("ImagePicker: selectedImage changed - Image cleared")
+            }
         }
     }
 }
@@ -89,16 +111,21 @@ struct ImagePickerController: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
+        print(" ImagePickerController: Creating UIImagePickerController")
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
         picker.sourceType = .photoLibrary
+        picker.allowsEditing = false
         return picker
     }
     
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
+       
+    }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        print("ImagePickerController: Creating coordinator")
+        return Coordinator(self)
     }
     
     class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -106,17 +133,40 @@ struct ImagePickerController: UIViewControllerRepresentable {
         
         init(_ parent: ImagePickerController) {
             self.parent = parent
+            super.init()
+            print(" Coordinator: Initialized")
         }
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let uiImage = info[.originalImage] as? UIImage {
-                parent.image = uiImage
+            print(" Coordinator: Image picker finished with info:")
+            print("  Available keys: \(info.keys)")
+            
+            if let originalImage = info[.originalImage] as? UIImage {
+                print(" Coordinator: Found original image - Size: \(originalImage.size)")
+                parent.image = originalImage
+                print(" Coordinator: Set parent.image to selected image")
+            } else {
+                print(" Coordinator: No original image found in info")
             }
+            
+           
+            if let editedImage = info[.editedImage] as? UIImage {
+                print(" Coordinator: Found edited image - Size: \(editedImage.size)")
+                parent.image = editedImage
+            }
+            
+            print("Coordinator: Dismissing picker...")
             parent.presentationMode.wrappedValue.dismiss()
         }
         
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            print(" Coordinator: Image picker was cancelled")
             parent.presentationMode.wrappedValue.dismiss()
+        }
+        
+      
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+            print(" Coordinator: Legacy delegate method called")
         }
     }
 }

@@ -19,7 +19,7 @@ struct EzyCook_Recipe_AppApp: App {
             //AddIngredientsView()
             //RecipeListView()
             //MyRecipesView()
-            SignInView()
+            SignUpView()
            // ResetPasswordView()
            // OTPView()
           //  ForgotPasswordView()
