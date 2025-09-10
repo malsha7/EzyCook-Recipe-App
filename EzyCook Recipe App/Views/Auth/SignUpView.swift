@@ -148,10 +148,14 @@ struct SignUpView: View {
                                     .font(.sfProMedium(size: 16))
                                 
                                 Button("Sign In") {
-                                    dismiss()
+                                
+                                    showSignIn = true
                                 }
                                 .foregroundColor(.appWhite)
                                 .font(.sfProMedium(size: 16))
+                            }
+                            .fullScreenCover(isPresented: $showSignIn) {
+                                SignInView() 
                             }
                             .padding(.top, 20)
                         }
