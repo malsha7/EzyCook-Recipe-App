@@ -8,20 +8,61 @@
 import Foundation
 
 
-struct Ingredient: Identifiable, Codable {
-    var id = UUID()
-    var name: String
-    var quantity: String
+
+struct Ingredient: Codable, Equatable {
+    let name: String
+    let quantity: String?
 }
 
-struct Recipe: Identifiable{
-    
-    let id = UUID()
-    let name: String
-    let time: String
-    let tools: String
+// recipe model matching with backend response
+struct Recipe: Codable, Identifiable, Equatable {
+    let id: String
+    var title: String
+    var description: String
     var ingredients: [Ingredient]
-    let imageName: String
+    var tools: [String]?
+    var mealTime: String?
+    var servings: Int?
+    var imageUrl: String?
+    var createdAt: String?
+    var updatedAt: String?
     
+    // codingkeys  map backend field names
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case title
+        case description
+        case ingredients
+        case tools
+        case mealTime
+        case servings
+        case imageUrl = "image"
+        case createdAt
+        case updatedAt
+    }
+    
+   
+    var displayImageURL: URL? {
+        guard let image = imageUrl?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !image.isEmpty else {
+            print("displayImageURL: imageUrl is empty or nil")
+            return nil
+        }
+        
+        if image.hasPrefix("http") {
+            
+            let url = URL(string: image)
+            print("displayImageURL (system): \(url?.absoluteString ?? "invalid URL")")
+            return url
+        } else {
+           
+            let path = image.hasPrefix("/") ? String(image.dropFirst()) : image
+            let fullURL = "https://ezycook.duckdns.org/\(path)"
+            let encodedURL = fullURL.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
+            let url = encodedURL.flatMap { URL(string: $0) }
+            print("displayImageURL (user-uploaded): \(url?.absoluteString ?? "invalid URL")")
+            return url
+        }
+    }
     
 }
