@@ -12,6 +12,8 @@ struct MyRecipesView: View {
     @State private var selectedRecipe: Recipe?
     @State private var showAddNewRecipe = false
     
+    @StateObject private var vm = RecipeViewModel()
+    
     // sample user recipes
     @State private var recipes: [Recipe] = [
         Recipe(
