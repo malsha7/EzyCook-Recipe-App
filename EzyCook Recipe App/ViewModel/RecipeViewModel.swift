@@ -16,6 +16,11 @@ class RecipeViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var createdRecipe: Recipe?
     @Published var myRecipes: [Recipe] = []
+    @Published var filteredRecipes: [Recipe] = []
+    
+    @Published var selectedTools: [String] = []
+    @Published var selectedMealTime: String = ""
+    @Published var selectedIngredients: [String] = []
     
     func createRecipe(
         title: String,
@@ -115,6 +120,49 @@ class RecipeViewModel: ObservableObject {
                 }
             }
         }
+    
+    func filterRecipes() {
+           let possibleTokens = [
+               UserDefaults.standard.string(forKey: "auth_token"),
+               UserDefaults.standard.string(forKey: "auth_Token"),
+               UserDefaults.standard.string(forKey: "authToken"),
+               UserDefaults.standard.string(forKey: "token"),
+               UserDefaults.standard.string(forKey: "accessToken"),
+               UserDefaults.standard.string(forKey: "userToken")
+           ]
+
+           guard let token = possibleTokens.compactMap({ $0 }).first else {
+               print("No token found for filtering recipes")
+               self.errorMessage = "Not logged in."
+               return
+           }
+
+           print("Filtering recipes with tools: \(selectedTools), mealTime: \(selectedMealTime), ingredients: \(selectedIngredients)")
+
+           isLoading = true
+           errorMessage = nil
+
+           RecipeService.shared.filterRecipes(
+               tools: selectedTools,
+               mealTime: selectedMealTime,
+               //mealTime: selectedMealTime.isEmpty ? nil : selectedMealTime,
+               ingredients: selectedIngredients,
+               token: token
+           ) { [weak self] result in
+               guard let self = self else { return }
+               DispatchQueue.main.async {
+                   self.isLoading = false
+                   switch result {
+                   case .success(let recipes):
+                       print("Loaded \(recipes.count) filtered recipes")
+                       self.filteredRecipes = recipes
+                   case .failure(let error):
+                       print("Failed to filter recipes: \(error.localizedDescription)")
+                       self.errorMessage = error.localizedDescription
+                   }
+               }
+           }
+       }
     
     
 }
