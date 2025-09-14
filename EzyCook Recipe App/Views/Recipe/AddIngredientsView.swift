@@ -15,8 +15,10 @@ struct AddIngredientsView: View {
     @State private var navigateBack = false
     @State private var showAlert = false
     
-    var selectedTools: [String] = []
-    var selectedMealTime: String = ""
+   // var selectedTools: [String] = []
+  //  var selectedMealTime: String = ""
+    
+    @EnvironmentObject var vm: RecipeViewModel
     
     var body: some View {
         VStack(spacing: 20) {
@@ -202,9 +204,15 @@ struct AddIngredientsView: View {
             showAlert = true
         } else {
             print("Final Recipe Plan:")
-            print("Tools: \(selectedTools)")
-            print("Meal Time: \(selectedMealTime)")
-            print("Ingredients: \(ingredients)")
+            print("Tools: \(vm.selectedTools)")
+            print("Meal Time: \(vm.selectedMealTime)")
+            print("Ingredients: \(vm.selectedIngredients)")
+            
+            vm.selectedIngredients = ingredients
+            
+            vm.filterRecipes()
+            
+            
             navigateToRecipes = true
         }
     }
