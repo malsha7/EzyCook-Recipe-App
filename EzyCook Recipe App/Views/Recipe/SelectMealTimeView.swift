@@ -16,6 +16,7 @@ struct SelectMealTimeView: View {
     @State private var showAlert = false
     @State private var navigateToNextView = false
     
+    @EnvironmentObject var vm: RecipeViewModel
     
     var body: some View {
         VStack(spacing: 20) {
@@ -40,11 +41,7 @@ struct SelectMealTimeView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                 
                 Button(action: {
-                    if selectedMealTime.isEmpty {
-                        showAlert = true
-                    } else {
-                        navigateToNextView = true
-                    }
+                    saveSelectedMealTime()
                 }) {
                     Text("Next")
                         .foregroundColor(.appBlue)
@@ -57,7 +54,7 @@ struct SelectMealTimeView: View {
                 .fill(Color.appWhite.opacity(0.25))
                 .frame(height: 1)
             
-           
+            
             Text("Select Meal Time")
                 .font(.sfProRegular(size: 14))
                 .foregroundColor(.appWhite.opacity(0.7))
@@ -95,15 +92,9 @@ struct SelectMealTimeView: View {
             Spacer()
                 .frame(height: 170)
             
-          
+            
             VStack {
-                Button(action: {
-                    if selectedMealTime.isEmpty {
-                        showAlert = true
-                    } else {
-                        navigateToNextView = true
-                    }
-                }) {
+                Button(action: saveSelectedMealTime) {
                     LiquidGlassButton(
                         title: "Next",
                         icon: "chevron.right",
@@ -112,13 +103,13 @@ struct SelectMealTimeView: View {
                         cornerRadius: 12,
                         fontSize: 17,
                         fontWeight: .medium) {
-                        
-                    }
+                            
+                        }
                 }
             }
             
             Spacer()
-           
+            
         }
         .padding()
         .background(Color.appBlack.ignoresSafeArea())
@@ -127,19 +118,31 @@ struct SelectMealTimeView: View {
                   message: Text("Please select a meal time to continue"),
                   dismissButton: .default(Text("OK")))
         }
-//        .background(
-//            NavigationLink(
-//                destination: AddIngredientsView(selectedTools: selectedTools, selectedMealTime: selectedMealTime),
-//                isActive: $navigateToNextView
-//            ) {
-//                SelectToolsView()
-//            }
-//            .hidden()
-//        )
+        
+        .navigationDestination(isPresented: $navigateToNextView) {
+            AddIngredientsView()
+                .environmentObject(vm)
+        }
+        
     }
-    
+        
+        private func saveSelectedMealTime() {
+            if selectedMealTime.isEmpty {
+                showAlert = true
+            } else {
+               
+                vm.selectedMealTime = selectedMealTime
+                print("Selected meal time: \(selectedMealTime)")
+                
+                
+                vm.filterRecipes()
+                
+                
+                navigateToNextView = true
+            }
+        }
 }
 
-#Preview {
-    SelectMealTimeView()
-}
+//#Preview {
+//    SelectMealTimeView()
+//}
