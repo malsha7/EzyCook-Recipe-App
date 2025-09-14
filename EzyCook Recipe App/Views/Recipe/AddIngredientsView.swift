@@ -100,11 +100,11 @@ struct AddIngredientsView: View {
         .padding()
         .background(Color.appBlack.ignoresSafeArea())
         .navigationDestination(isPresented: $navigateToRecipes) {
-                    RecipeListView(
-                        selectedTools: selectedTools,
-                        selectedMealTime: selectedMealTime,
-                        selectedIngredients: ingredients
-                    )
+//                    RecipeListView(
+//                        selectedTools: selectedTools,
+//                        selectedMealTime: selectedMealTime,
+//                        selectedIngredients: ingredients
+//                    )
             
                 }
         .alert(isPresented: $showAlert) {

@@ -58,8 +58,23 @@ struct MyRecipesView: View {
                 .frame(height: 1)
             
             // myrecipe list with swipe-to-delete
-            List {
-                if recipes.isEmpty {
+            Group {
+                if vm.isLoading {
+                    ProgressView("Loading recipes...")
+                        .foregroundColor(.appWhite)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.top, 40)
+                } else if let error = vm.errorMessage {
+                    VStack(spacing: 12) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.red)
+                            .font(.system(size: 40))
+                        Text(error)
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
+                    }
+                    .padding(.top, 40)
+                } else if vm.myRecipes.isEmpty {
                     VStack(spacing: 16) {
                         Image(systemName: "fork.knife")
                             .font(.system(size: 48))
@@ -76,38 +91,42 @@ struct MyRecipesView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.top, 40)
-                    .listRowBackground(Color.clear)
                 } else {
-                    ForEach(recipes, id: \.name) { recipe in
-                        RecipeCardView(recipe: recipe) {
-                            selectedRecipe = recipe
-                        }
-                        .listRowBackground(Color.clear)
-                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                            Button(role: .destructive) {
-                                if let index = recipes.firstIndex(where: { $0.name == recipe.name }) {
-                                    recipes.remove(at: index)
+                    List {
+                        ForEach(vm.myRecipes) { recipe in
+                            MyRecipeCardView(recipe: recipe) {
+                                selectedRecipe = recipe
+                            }
+                            .listRowBackground(Color.clear)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                Button(role: .destructive) {
+                                    if let index = vm.myRecipes.firstIndex(where: { $0.id == recipe.id }) {
+                                        vm.myRecipes.remove(at: index)
+                                    }
+                                  
+                                } label: {
+                                    Label("Delete", systemImage: "trash.fill")
                                 }
-                            } label: {
-                                Label("Delete", systemImage: "trash.fill")
                             }
                         }
                     }
+                    .listStyle(PlainListStyle())
+                    .background(Color.appBlack)
                 }
             }
-            .listStyle(PlainListStyle())
-            .background(Color.appBlack)
-            
             Spacer()
         }
         .padding()
         .background(Color.appBlack.ignoresSafeArea())
         .navigationBarHidden(true)
         .fullScreenCover(item: $selectedRecipe) { recipe in
-            RecipeDetailsView(recipe: recipe)
+            MyRecipeDetailsView(recipe: recipe)
         }
         .sheet(isPresented: $showAddNewRecipe) {
             AddNewRecipeView()
+        }
+        .onAppear {
+            vm.getMyRecipes()
         }
     }
 }

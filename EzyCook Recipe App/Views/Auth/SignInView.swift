@@ -190,8 +190,9 @@ struct SignInView: View {
             Text(alertMessage)
         }
         .fullScreenCover(isPresented: $showHome) {
-            HomeView()
-                .environmentObject(userVM) // pass if needed
+            MyRecipesView()
+//            HomeView()
+//                .environmentObject(userVM) // pass if needed
         }
         .fullScreenCover(isPresented: $showFaceID) {
             FaceIDScreenView()

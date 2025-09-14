@@ -15,6 +15,7 @@ class RecipeViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     @Published var createdRecipe: Recipe?
+    @Published var myRecipes: [Recipe] = []
     
     func createRecipe(
         title: String,
@@ -77,6 +78,43 @@ class RecipeViewModel: ObservableObject {
             }
         }
     }
+    
+    func getMyRecipes() {
+            let possibleTokens = [
+                UserDefaults.standard.string(forKey: "auth_token"),
+                UserDefaults.standard.string(forKey: "auth_Token"),
+                UserDefaults.standard.string(forKey: "authToken"),
+                UserDefaults.standard.string(forKey: "token"),
+                UserDefaults.standard.string(forKey: "accessToken"),
+                UserDefaults.standard.string(forKey: "userToken")
+            ]
+
+            guard let token = possibleTokens.compactMap({ $0 }).first else {
+                print("No token found for fetching recipes")
+                self.errorMessage = "Not logged in."
+                return
+            }
+
+            print("Fetching my recipes with token: \(token.prefix(5))...")
+
+            isLoading = true
+            errorMessage = nil
+
+            RecipeService.shared.getMyRecipes(token: token) { [weak self] result in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.isLoading = false
+                    switch result {
+                    case .success(let recipes):
+                        print("Loaded \(recipes.count) recipes")
+                        self.myRecipes = recipes
+                    case .failure(let error):
+                        print("Failed to load recipes: \(error.localizedDescription)")
+                        self.errorMessage = error.localizedDescription
+                    }
+                }
+            }
+        }
     
     
 }

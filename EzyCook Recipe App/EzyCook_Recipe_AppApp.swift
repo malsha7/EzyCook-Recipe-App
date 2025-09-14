@@ -11,6 +11,7 @@ import SwiftUI
 struct EzyCook_Recipe_AppApp: App {
     
     @StateObject private var userVM = UserViewModel()
+    @StateObject var vm = RecipeViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -19,11 +20,13 @@ struct EzyCook_Recipe_AppApp: App {
             //AddIngredientsView()
             //RecipeListView()
             //MyRecipesView()
-            SignUpView()
+            SignInView()
+        //   SignUpView()
            // ResetPasswordView()
            // OTPView()
           //  ForgotPasswordView()
                 .environmentObject(UserViewModel())
+                .environmentObject(RecipeViewModel())
         }
     }
 }
