@@ -82,30 +82,31 @@ struct RecipeDetailsView: View {
                             switch phase {
                             case .empty:
                                 ProgressView()
-                                    .frame(height: 200)
+                                    .frame(height: 250)
                             case .success(let image):
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(height: 200)
+                                    .frame(height: 250)
                                     .clipped()
                             case .failure(_):
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(Color.appWhite.opacity(0.1))
-                                    .frame(height: 200)
+                                    .frame(height: 250)
                                     .overlay(
                                         Image("recipe image")
                                             .aspectRatio(contentMode: .fill)
-                                            .frame(height: 200)
+                                            .frame(height: 250)
                                             .clipped()
                                             .foregroundColor(.gray)
                                     )
                             @unknown default:
-                                Color.gray.frame(height: 200)
+                                Color.gray.frame(height: 250)
                             }
                         }
-                        .frame(width: 350, height: 250)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .cornerRadius(12)
+                        .padding(.horizontal, 16)
+                        .padding(.top, 16)
                         
                         
                         HStack(spacing: 0) {
