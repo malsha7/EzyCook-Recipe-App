@@ -14,53 +14,7 @@ struct MyRecipesView: View {
     
     @StateObject private var vm = RecipeViewModel()
     
-    // sample user recipes
-    @State private var recipes: [Recipe] = [
-        Recipe(
-            name: "Egg Fried Noodles",
-            time: "20min",
-            tools: "Microwave",
-            
-            ingredients: [
-                Ingredient(name: "Noodles", quantity: "200g"),
-                Ingredient(name: "Egg", quantity: "2")],
-                imageName: "egg_fried_noodles"
-            
-        ),
-        Recipe(
-            name: "Chicken Rice",
-            time: "30min",
-            tools: "Gas Cooker",
-           
-            ingredients: [
-                Ingredient(name: "Chicken", quantity: "300g"),
-                Ingredient(name: "Rice", quantity: "150g")
-            ],
-            imageName: "chicken_rice"
-        ),
-        Recipe(
-            name: "Quick Pasta",
-            time: "15min",
-            tools: "Gas Cooker",
-            ingredients: [
-                Ingredient(name: "Pasta", quantity: "200g"),
-                Ingredient(name: "Tomato Sauce", quantity: "100g")
-            ],
-            imageName: "quick_pasta"
-           
-        ),
-        Recipe(
-            name: "Microwave Mug Cake",
-            time: "5min",
-            tools: "Microwave",
-            ingredients: [
-                Ingredient(name: "Flour", quantity: "50g"),
-                Ingredient(name: "Milk", quantity: "50ml")
-            ],
-            imageName: "mug_cake"
-            
-        )
-    ]
+   
     
     var body: some View {
         VStack(spacing: 16) {
