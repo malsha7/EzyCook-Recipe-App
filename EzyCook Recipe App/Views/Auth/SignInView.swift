@@ -21,7 +21,7 @@ struct SignInView: View {
     @State private var validationErrors: [String: String] = [:]
     
     @EnvironmentObject var userVM: UserViewModel
-    
+    @EnvironmentObject var vm : RecipeViewModel
     
     var body: some View {
         ZStack {
@@ -190,7 +190,9 @@ struct SignInView: View {
             Text(alertMessage)
         }
         .fullScreenCover(isPresented: $showHome) {
-            MyRecipesView()
+            SelectToolsView()
+                .environmentObject(vm)
+    //        MyRecipesView()
 //            HomeView()
 //                .environmentObject(userVM) // pass if needed
         }
