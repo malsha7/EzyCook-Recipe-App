@@ -14,6 +14,16 @@ struct Ingredient: Codable, Equatable {
     let quantity: String?
 }
 
+struct RecipeSuggestion: Codable, Identifiable {
+    let id: String
+    let title: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case title
+    }
+}
+
 // recipe model matching with backend response
 struct Recipe: Codable, Identifiable, Equatable {
     let id: String
