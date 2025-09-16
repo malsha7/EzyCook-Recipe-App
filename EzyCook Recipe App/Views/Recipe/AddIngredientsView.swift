@@ -101,6 +101,7 @@ struct AddIngredientsView: View {
         }
         .padding()
         .background(Color.appBlack.ignoresSafeArea())
+        .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $navigateToRecipes) {
                     RecipeListView(
                         selectedTools: vm.selectedTools,

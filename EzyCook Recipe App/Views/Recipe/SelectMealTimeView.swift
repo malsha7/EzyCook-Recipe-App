@@ -56,7 +56,7 @@ struct SelectMealTimeView: View {
             
             
             Text("Select Meal Time")
-                .font(.sfProRegular(size: 14))
+                .font(.sfProRegular(size: 16))
                 .foregroundColor(.appWhite.opacity(0.7))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -94,17 +94,16 @@ struct SelectMealTimeView: View {
             
             
             VStack {
-                Button(action: saveSelectedMealTime) {
-                    LiquidGlassButton(
-                        title: "Next",
-                        icon: "chevron.right",
-                        width: 227,
-                        height: 44,
-                        cornerRadius: 12,
-                        fontSize: 17,
-                        fontWeight: .medium) {
-                            
-                        }
+                LiquidGlassButton(
+                    title: "Next",
+                    icon: "chevron.right",
+                    width: 227,
+                    height: 44,
+                    cornerRadius: 12,
+                    fontSize: 17,
+                    fontWeight: .medium
+                ) {
+                    saveSelectedMealTime()
                 }
             }
             

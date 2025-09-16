@@ -47,9 +47,9 @@ struct RecipeListView: View {
                 }) {
                     HStack(spacing: 4) {
                         Image(systemName: "line.3.horizontal.decrease")
-                            .foregroundColor(.appBlue)
+                            .foregroundColor(.appBlack)
                         Text("Filter")
-                            .foregroundColor(.appBlue)
+                            .foregroundColor(.appBlack)
                             .font(.sfProMedium(size: 16))
                     }
                 }
@@ -133,6 +133,7 @@ struct RecipeListView: View {
         }
         .padding()
         .background(Color.appBlack.ignoresSafeArea())
+        .navigationBarBackButtonHidden(true)
         .fullScreenCover(item: $selectedRecipe) { recipe in
             RecipeDetailsView(recipe: recipe)
         }

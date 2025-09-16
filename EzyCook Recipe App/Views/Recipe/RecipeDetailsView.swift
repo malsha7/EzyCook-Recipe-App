@@ -224,7 +224,7 @@ struct RecipeDetailsView: View {
                                 playRecipeVideo()
                             }) {
                                 HStack(spacing: 6) {
-                                    Image("Video")
+                                    Image(systemName: "play.rectangle.fill")
                                         .font(.system(size: 14, weight: .medium))
                                         .foregroundColor(.appWhite)
                                     Text("Watch")

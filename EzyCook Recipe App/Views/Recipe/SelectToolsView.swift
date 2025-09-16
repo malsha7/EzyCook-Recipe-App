@@ -92,12 +92,13 @@ struct SelectToolsView: View {
                
                                 NavigationLink(
                                     destination: SelectMealTimeView(selectedTools: selectedTools)
+                                        .navigationBarBackButtonHidden(true)
                                         .environmentObject(vm),
                                     isActive: $navigateToMealTime
                                 ) {
                                     EmptyView()
                                 }
-                                .navigationBarBackButtonHidden()
+                                
             }
             .padding()
             .background(Color.appBlack.ignoresSafeArea())
