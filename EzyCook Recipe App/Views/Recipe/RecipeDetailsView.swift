@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct RecipeDetailsView: View {
     
@@ -252,6 +253,29 @@ struct RecipeDetailsView: View {
                     }
                 }
                 
+                .sheet(isPresented: $showVideoPlayer) {
+                    if let player = avManager.player {
+                        VideoPlayer(player: player)
+                            .onAppear { avManager.play() }
+                            .onDisappear { avManager.pause() }
+                            .ignoresSafeArea()
+                            .overlay(
+                               
+                                Button(action: { showVideoPlayer = false }) {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .font(.system(size: 30))
+                                        .foregroundColor(.white)
+                                        .padding()
+                                },
+                                alignment: .topTrailing
+                            )
+                    } else {
+                        Text("Video not available")
+                            .foregroundColor(.appWhite)
+                            .padding()
+                    }
+                }
+                
             }
         }
         
@@ -272,7 +296,18 @@ struct RecipeDetailsView: View {
     
     private func playRecipeVideo() {
        
-        
+        guard let url = recipe.displayVideoURL else {
+                print("Video URL not available")
+                return
+            }
+
+            avManager.setupPlayer(with: url) {
+               
+                showVideoPlayer = false
+            }
+
+            showVideoPlayer = true
+            avManager.play()
         
     }
     
