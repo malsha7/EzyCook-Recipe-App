@@ -34,6 +34,7 @@ struct Recipe: Codable, Identifiable, Equatable {
     var mealTime: String?
     var servings: Int?
     var imageUrl: String?
+    var videoUrl: String?
     var createdAt: String?
     var updatedAt: String?
     
@@ -47,6 +48,7 @@ struct Recipe: Codable, Identifiable, Equatable {
         case mealTime
         case servings
         case imageUrl = "image"
+        case videoUrl
         case createdAt
         case updatedAt
     }
@@ -74,5 +76,22 @@ struct Recipe: Codable, Identifiable, Equatable {
             return url
         }
     }
+    
+   
+        var displayVideoURL: URL? {
+            guard let video = videoUrl?.trimmingCharacters(in: .whitespacesAndNewlines),
+                  !video.isEmpty else {
+                return nil
+            }
+            
+            if video.hasPrefix("http") {
+                return URL(string: video)
+            } else {
+                let path = video.hasPrefix("/") ? String(video.dropFirst()) : video
+                let fullURL = "https://ezycook.duckdns.org/\(path)"
+                let encodedURL = fullURL.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
+                return encodedURL.flatMap { URL(string: $0) }
+            }
+        }
     
 }

@@ -13,6 +13,8 @@ struct RecipeDetailsView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var isFavorited = false
     @State private var isAdded = false
+    @StateObject private var avManager = AVManager()
+    @State private var showVideoPlayer = false
     
     var body: some View {
         
@@ -249,6 +251,7 @@ struct RecipeDetailsView: View {
                         .padding(.bottom, 32)
                     }
                 }
+                
             }
         }
         
@@ -269,7 +272,7 @@ struct RecipeDetailsView: View {
     
     private func playRecipeVideo() {
        
-        print("Playing recipe video")
+        
         
     }
     
