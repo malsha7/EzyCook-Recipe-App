@@ -20,25 +20,25 @@ struct BottomNavBar: View {
         HStack(spacing: 0) {
             Spacer()
             
-            navButton(tab: 0, systemIcon: "house")
+            navButton(tab: 0, imageName: "Home")
             Spacer()
             
-            navButton(tab: 1, systemIcon: "square.grid.2x2")
+            navButton(tab: 1, imageName: "Select")
             Spacer()
             
-            navButton(tab: 2, systemIcon: "person.crop.square")
+            navButton(tab: 2, imageName: "myrecipe")
             Spacer()
             
-            navButton(tab: 3, systemIcon: "heart")
+            navButton(tab: 3, imageName: "Heart")
             Spacer()
             
-            navButton(tab: 4, systemIcon: "gearshape")
+            navButton(tab: 4, imageName: "Settings")
             
             Spacer()
         }
         .frame(width: width, height: height)
         .background(
-            RoundedRectangle(cornerRadius: 12) 
+            RoundedRectangle(cornerRadius: 12)
                 .fill(Color.appWhite.opacity(0.3))
                 .blur(radius: 1)
                 .shadow(color: Color.appBlack.opacity(0.1), radius: 10, x: 0, y: 5)
@@ -52,9 +52,9 @@ struct BottomNavBar: View {
     }
     
     @ViewBuilder
-    private func navButton(tab: Int, systemIcon: String) -> some View {
+    private func navButton(tab: Int, imageName: String) -> some View {
         Button(action: { selectedTab = tab }) {
-            Image(systemName: selectedTab == tab ? "\(systemIcon).fill" : systemIcon)
+            Image(selectedTab == tab ? "\(imageName)_fill" : imageName)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: iconSize, height: iconSize)
