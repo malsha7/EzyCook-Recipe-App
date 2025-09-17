@@ -94,7 +94,7 @@ struct FavoritesListView: View {
             .background(Color.appBlack.ignoresSafeArea())
             .navigationBarBackButtonHidden(true)
             .fullScreenCover(item: $selectedRecipe) { recipe in
-               // FavoriteRecipeDetailsView(recipe: recipe)
+                FavoriteRecipeDetailsView(recipe: recipe)
             }
             .fullScreenCover(isPresented: $showMyRecipes) {
                // MyRecipesView(selectedTab: $selectedTab)
