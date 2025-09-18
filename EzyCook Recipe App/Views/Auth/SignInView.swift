@@ -191,11 +191,11 @@ struct SignInView: View {
             Text(alertMessage)
         }
         .fullScreenCover(isPresented: $showHome) {
-            SelectToolsView(selectedTab: $selectedTab)
-                .environmentObject(vm)
+//            SelectToolsView(selectedTab: $selectedTab)
+//                .environmentObject(vm)
     //        MyRecipesView()
-//            HomeView()
-//                .environmentObject(userVM) // pass if needed
+            HomeView(selectedTab: $selectedTab)
+                .environmentObject(userVM) // pass if needed
         }
         .fullScreenCover(isPresented: $showFaceID) {
             FaceIDScreenView()

@@ -6,12 +6,298 @@
 //
 
 import SwiftUI
+import AVKit
+
 
 struct FavoriteRecipeDetailsView: View {
     let recipe: Recipe
+    @Environment(\.dismiss) private var dismiss
+    @State private var isAdded = false
+    @State private var showVideoPlayer = false
+    @StateObject private var avManager = AVManager()
+    @State private var eventTitle = ""
+    @State private var eventDate = Date()
+    @EnvironmentObject var calendarManager: CalendarManager
+    @State private var showDatePicker = false
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        ZStack {
+            Color.appBlack.ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+               
+                HStack {
+                    Button(action: { dismiss() }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                                .foregroundColor(.appBlue)
+                            Text("Back")
+                                .foregroundColor(.appBlue)
+                                .font(.sfProMedium(size: 16))
+                        }
+                    }
+                    
+                    Spacer()
+                    
+                    Text("Fav Recipe Details")
+                        .font(.sfProBold(size: 18))
+                        .foregroundColor(.appWhite)
+                    
+                    Spacer()
+                    
+                   
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(.appWhite)
+                        .font(.system(size: 20))
+                }
+                .padding()
+                .background(Color.appBlack)
+                
+               
+                Rectangle()
+                    .fill(Color.appWhite.opacity(0.25))
+                    .frame(height: 1)
+                
+                ScrollView {
+                    VStack(spacing: 0) {
+                        HStack {
+                            Text(recipe.title)
+                                .font(.sfProBold(size: 24))
+                                .foregroundColor(.appWhite)
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 16)
+                        
+                       
+                        AsyncImage(url: recipe.displayImageURL) { phase in
+                            switch phase {
+                            case .empty:
+                                ProgressView()
+                                .frame(height: 200)
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(height: 200)
+                                    .clipped()
+                            case .failure(_):
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Color.appWhite.opacity(0.1))
+                                    .frame(height: 200)
+                                    .overlay(
+                                        Image("image_1")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(height: 200)
+                                            .clipped()
+                                    )
+                            @unknown default:
+                                Color.gray.frame(height: 200)
+                            }
+                        }
+                        .cornerRadius(12)
+                        .padding(.horizontal, 16)
+                        .padding(.top, 16)
+                        
+                        HStack(spacing: 0) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Cook Time : \(recipe.mealTime ?? "20min")")
+                                    .font(.sfProMedium(size: 14))
+                                    .foregroundColor(.appWhite)
+                                
+                                Text("Tools : \(recipe.tools?.joined(separator: ", ") ?? "Gas Cooker")")
+                                    .font(.sfProMedium(size: 14))
+                                    .foregroundColor(.appWhite)
+                                
+                                Text("Servings : \(recipe.servings ?? 2)")
+                                    .font(.sfProMedium(size: 14))
+                                    .foregroundColor(.appWhite)
+                            }
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                isAdded.toggle()
+                                }
+                                showDatePicker = true
+                            }) {
+                                HStack(spacing: 6) {
+                                    Image(systemName: isAdded ? "checkmark" : "calendar.badge.plus")
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundColor(.appWhite)
+                                    Text(isAdded ? "Added" : "Add")
+                                        .font(.sfProMedium(size: 14))
+                                        .foregroundColor(.appWhite)
+                                }
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 10)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(isAdded ? Color.appWhite.opacity(0.6) : Color.appWhite.opacity(0.15))
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 12)
+                                            .stroke(isAdded ? Color.green : Color.appWhite.opacity(0.3), lineWidth: 1)
+                                        )
+                                )
+                                .scaleEffect(isAdded ? 0.95 : 1.0)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .sheet(isPresented: $showDatePicker) {
+                                VStack(spacing: 20) {
+                                    Text("Select Meal Time")
+                                        .font(.sfProBold(size: 18))
+                                        .foregroundColor(.appWhite)
+                                    
+                                    TextField("Event Name", text: $eventTitle)
+                                            .padding()
+                                            .background(Color.appWhite.opacity(0.1))
+                                            .foregroundColor(.appWhite)
+                                            .cornerRadius(12)
+                                    
+                                    DatePicker(
+                                        "Meal Time",
+                                        selection: $eventDate,
+                                        displayedComponents: [.date, .hourAndMinute]
+                                    )
+                                    .datePickerStyle(.graphical)
+                                    .labelsHidden()
+                                    .colorInvert()
+                                    .accentColor(.appBlue)
+                                    
+                                    Button("Confirm") {
+                                        let titleToUse = eventTitle.isEmpty ? recipe.title : eventTitle
+                                                    addRecipeToMealPlan(for: eventDate, title: titleToUse)
+                                                    showDatePicker = false
+                                    }
+                                    .font(.sfProMedium(size: 16))
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.appWhite.opacity(0.25))
+                                    .foregroundColor(Color.appWhite)
+                                    .cornerRadius(12)
+                                }
+                                .padding()
+                                .background(Color.appBlack.ignoresSafeArea())
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 16)
+                        
+                       
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Ingredients")
+                                .font(.sfProBold(size: 18))
+                                .foregroundColor(.appWhite)
+                            
+                            if recipe.ingredients.isEmpty {
+                                Text("No ingredients listed.")
+                                    .font(.sfProRegular(size: 14))
+                                    .foregroundColor(.appWhite.opacity(0.8))
+                            } else {
+                                ForEach(Array(recipe.ingredients.enumerated()), id: \.offset) { index, ingredient in
+                                    Text(ingredient.quantity != nil ? "\(ingredient.quantity!) \(ingredient.name)" : ingredient.name)
+                                        .font(.sfProMedium(size: 14))
+                                        .foregroundColor(.appWhite)
+                                }
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 16)
+                        .padding(.top, 24)
+                        
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Cooking Instructions")
+                                .font(.sfProBold(size: 18))
+                                .foregroundColor(.appWhite)
+                            
+                            Text(recipe.description.isEmpty ? "No cooking instructions provided." : recipe.description)
+                                .font(.sfProRegular(size: 14))
+                                .foregroundColor(.appWhite.opacity(0.8))
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 16)
+                        .padding(.top, 24)
+                        
+                        HStack {
+                            Spacer()
+                            Button(action: { playRecipeVideo() }) {
+                                HStack(spacing: 6) {
+                                    Image(systemName: "play.rectangle.fill")
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundColor(.appWhite)
+                                    Text("Watch")
+                                        .font(.sfProMedium(size: 14))
+                                        .foregroundColor(.appWhite)
+                                }
+                                .padding(.horizontal, 20)
+                                .padding(.vertical, 12)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color.appWhite.opacity(0.15))
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 12)
+                                            .stroke(Color.appWhite.opacity(0.4), lineWidth: 0.5)
+                                        )
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.top, 24)
+                        .padding(.bottom, 32)
+                    }
+                }
+                .sheet(isPresented: $showVideoPlayer) {
+                    if let player = avManager.player {
+                        VideoPlayer(player: player)
+                            .onAppear { avManager.play() }
+                            .onDisappear { avManager.pause() }
+                            .ignoresSafeArea()
+                            .overlay(
+                                Button(action: { showVideoPlayer = false }) {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .font(.system(size: 30))
+                                        .foregroundColor(.white)
+                                        .padding()
+                                },
+                                alignment: .topTrailing
+                            )
+                    } else {
+                        Text("Video not available")
+                            .foregroundColor(.appWhite)
+                            .padding()
+                    }
+                }
+            }
+        }
+}
+    
+    
+    private func addRecipeToMealPlan(for date: Date, title : String) {
+        CalendarManager.shared.addMealEvent(title: title, date: date) { success, error in
+                if success {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                isAdded = true
+                    }
+                    print("Meal event added for \(title) at \(date)")
+                } else {
+                    print("Failed to add meal event: \(error?.localizedDescription ?? "unknown")")
+                }
+            }
     }
+    
+    private func playRecipeVideo() {
+        guard let url = recipe.displayVideoURL else { return }
+        avManager.setupPlayer(with: url) { showVideoPlayer = false }
+        showVideoPlayer = true
+        avManager.play()
+    }
+    
+    
+    
 }
 
 //#Preview {
