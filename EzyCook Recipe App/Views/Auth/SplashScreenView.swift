@@ -82,7 +82,8 @@ struct SplashScreenView: View {
         }
         .fullScreenCover(isPresented: $showSplashView) {
             // navigating next screen
-            ContentView()
+            SignInView()
+           // ContentView()
         }
     }
 }

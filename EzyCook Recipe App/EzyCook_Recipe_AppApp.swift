@@ -21,12 +21,12 @@ struct EzyCook_Recipe_AppApp: App {
     var body: some Scene {
         WindowGroup {
             //ContentView()
-            //SplashScreenView()
+            SplashScreenView()
             //AddIngredientsView()
             //RecipeListView()
             //MyRecipesView()
-            MainView()
-           // SignInView()
+          //  MainView()
+          //  SignInView()
         //   SignUpView()
            // ResetPasswordView()
            // OTPView()

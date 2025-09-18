@@ -122,7 +122,7 @@ struct ForgotPasswordView: View {
             .navigationDestination(isPresented: $navigateToOTP) {
                 OTPView(email: email)
             }
-            
+            .navigationBarBackButtonHidden(true)
             .onChange(of: navigateToOTP) { oldValue, newValue in
                 print("navigateToOTP changed: \(oldValue) -> \(newValue)")
             }

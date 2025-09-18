@@ -21,6 +21,8 @@ struct FaceIDScreenView: View {
     @State private var scanningAnimation = false
     @State private var selectedTab: Int = 0
     
+    
+    
     @EnvironmentObject var userVM: UserViewModel
     
     private var isSimulator: Bool {
@@ -131,8 +133,10 @@ struct FaceIDScreenView: View {
             }
             .navigationBarHidden(true)
             .fullScreenCover(isPresented: $navigateToHome) {
-                HomeView(selectedTab: $selectedTab)
-                    .environmentObject(userVM)
+            //    MainView()
+               HomeView(selectedTab: $selectedTab)
+                  .environmentObject(userVM)
+                
             }
         }
         .onAppear {
@@ -224,6 +228,7 @@ struct FaceIDScreenView: View {
         
         
         showSuccessAlert = true
+        
     }
 }
 

@@ -252,6 +252,7 @@ struct OTPInputField: View {
                 //  allow only numbers
                 text = text.filter { $0.isNumber }
             }
+           
     }
 }
 
