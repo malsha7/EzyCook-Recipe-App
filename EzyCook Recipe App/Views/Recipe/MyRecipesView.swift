@@ -19,7 +19,7 @@ struct MyRecipesView: View {
     var body: some View {
         VStack(spacing: 16) {
             
-            // top navigation row
+           
             HStack {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
@@ -38,7 +38,7 @@ struct MyRecipesView: View {
                     .foregroundColor(.appWhite)
                     .frame(maxWidth: .infinity, alignment: .center)
                 
-                // "+ Add" button navigate to AddNewRecipeView
+                
                 Button(action: {
                     showAddNewRecipe = true
                 }) {
@@ -52,12 +52,12 @@ struct MyRecipesView: View {
                 }
             }
             
-            // divider
+            
             Rectangle()
                 .fill(Color.appWhite.opacity(0.25))
                 .frame(height: 1)
             
-            // myrecipe list with swipe-to-delete
+            
             Group {
                 if vm.isLoading {
                     ProgressView("Loading recipes...")
@@ -100,9 +100,7 @@ struct MyRecipesView: View {
                             .listRowBackground(Color.clear)
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                 Button(role: .destructive) {
-                                    if let index = vm.myRecipes.firstIndex(where: { $0.id == recipe.id }) {
-                                        vm.myRecipes.remove(at: index)
-                                    }
+                                    vm.deleteRecipe(id: recipe.id)
                                   
                                 } label: {
                                     Label("Delete", systemImage: "trash.fill")
