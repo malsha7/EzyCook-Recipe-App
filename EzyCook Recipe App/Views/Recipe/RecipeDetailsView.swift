@@ -17,6 +17,11 @@ struct RecipeDetailsView: View {
     @StateObject private var avManager = AVManager()
     @State private var showVideoPlayer = false
     
+    @State private var eventTitle = ""
+    @State private var eventDate = Date()
+    @EnvironmentObject var calendarManager: CalendarManager
+    @State private var showDatePicker = false
+    
     var body: some View {
         
         ZStack {
@@ -134,10 +139,7 @@ struct RecipeDetailsView: View {
                             
                             
                             Button(action: {
-                                withAnimation(.easeInOut(duration: 0.2)) {
-                                    isAdded.toggle()
-                                }
-                                addRecipeToMealPlan()
+                                showDatePicker = true
                             }) {
                                 HStack(spacing: 6) {
                                     Image(systemName: isAdded ? "checkmark" : "calendar.badge.plus")
@@ -151,15 +153,52 @@ struct RecipeDetailsView: View {
                                 .padding(.vertical, 10)
                                 .background(
                                     RoundedRectangle(cornerRadius: 12)
-                                        .fill(isAdded ? Color.green.opacity(0.8) : Color.appWhite.opacity(0.15))
+                                        .fill(isAdded ? Color.appWhite.opacity(0.6) : Color.appWhite.opacity(0.15))
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 12)
-                                                .stroke(isAdded ? Color.green : Color.appWhite.opacity(0.3), lineWidth: 1)
+                                            .stroke(isAdded ? Color.appWhite.opacity(0.6) : Color.appWhite.opacity(0.3), lineWidth: 1)
                                         )
                                 )
                                 .scaleEffect(isAdded ? 0.95 : 1.0)
                             }
                             .buttonStyle(PlainButtonStyle())
+                            .sheet(isPresented: $showDatePicker) {
+                                VStack(spacing: 20) {
+                                    Text("Select Meal Time")
+                                        .font(.sfProBold(size: 16))
+                                        .foregroundColor(.appWhite)
+                                    
+                                    TextField("Event Name", text: $eventTitle)
+                                            .padding()
+                                            .background(Color.appWhite.opacity(0.1))
+                                            .foregroundColor(.appWhite)
+                                            .cornerRadius(12)
+                                    
+                                    DatePicker(
+                                        "Meal Time",
+                                        selection: $eventDate,
+                                        displayedComponents: [.date, .hourAndMinute]
+                                    )
+                                    .datePickerStyle(.graphical)
+                                    .labelsHidden()
+                                    .colorInvert()
+                                    .accentColor(.appBlue)
+                                    
+                                    Button("Confirm") {
+                                        let titleToUse = eventTitle.isEmpty ? recipe.title : eventTitle
+                                        addRecipeToMealPlan(for: eventDate, title: titleToUse)
+                                        showDatePicker = false
+                                    }
+                                    .font(.sfProMedium(size: 16))
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.appWhite.opacity(0.25))
+                                    .foregroundColor(Color.appWhite)
+                                    .cornerRadius(12)
+                                }
+                                .padding()
+                                .background(Color.appBlack.ignoresSafeArea())
+                            }
                         }
                         .padding(.horizontal, 16)
                         .padding(.top, 16)
@@ -278,19 +317,31 @@ struct RecipeDetailsView: View {
                 
             }
         }
-        
+        .onAppear {
+            isFavorited = CoreDataManager.shared.isFavorite(id: recipe.id)
+        }
         
     }
     
     private func saveToFavorites() {
        
-        print("Recipe \(isFavorited ? "added to" : "removed from") favorites")
+        CoreDataManager.shared.toggleFavorite(recipe)
+        isFavorited = CoreDataManager.shared.isFavorite(id: recipe.id)
        
     }
     
-    private func addRecipeToMealPlan() {
+    private func addRecipeToMealPlan(for date: Date, title : String) {
       
-        print("Recipe \(isAdded ? "added to" : "removed from") meal plan")
+        CalendarManager.shared.addMealEvent(title: title, date: date) { success, error in
+                if success {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        isAdded = true
+                    }
+                    print("Meal event added for \(title) at \(date)")
+                } else {
+                    print("Failed to add meal event: \(error?.localizedDescription ?? "unknown")")
+                }
+            }
        
     }
     
