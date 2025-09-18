@@ -17,9 +17,9 @@ struct MainView: View {
             case 0:
                 HomeView(selectedTab: $selectedTab)
             case 1:
-                MyRecipesView(selectedTab: $selectedTab)
-            case 2:
                 SelectToolsView(selectedTab: $selectedTab)
+            case 2:
+                MyRecipesView(selectedTab: $selectedTab)
             case 3:
                 FavoritesListView(selectedTab: $selectedTab)
             case 4:

@@ -98,6 +98,8 @@ struct SelectToolsView: View {
                                 ) {
                                     EmptyView()
                                 }
+                                .padding()
+                                BottomNavBar(selectedTab: $selectedTab)
                                 
             }
             .padding()

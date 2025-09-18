@@ -113,6 +113,7 @@ struct MyRecipesView: View {
                 }
             }
             Spacer()
+            BottomNavBar(selectedTab: $selectedTab)
         }
         .padding()
         .background(Color.appBlack.ignoresSafeArea())

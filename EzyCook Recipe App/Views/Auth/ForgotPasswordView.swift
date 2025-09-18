@@ -11,6 +11,7 @@ struct ForgotPasswordView: View {
     
     @State private var email = ""
     @State private var isAnimating = false
+    var enableAnimation: Bool = false
     @State private var showAlert = false
     @State private var navigateToOTP = false
     @State private var alertMessage = ""
@@ -106,7 +107,9 @@ struct ForgotPasswordView: View {
                 }
             }
             .onAppear {
-                isAnimating = true
+                if enableAnimation {
+                               isAnimating = true
+                  }
             }
             .alert("Forgot Password", isPresented: $showAlert) {
                 Button("OK", role: .cancel) {

@@ -80,7 +80,7 @@ struct SettingsView: View {
                                 }
                                 .buttonStyle(PlainButtonStyle())
                                 
-                                NavigationLink(destination: ForgotPasswordView()) {
+                                NavigationLink(destination: ForgotPasswordView(enableAnimation: false)) {
                                     SettingsRow(
                                         icon: "key",
                                         title: "Password Manager",
