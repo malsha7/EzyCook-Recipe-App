@@ -246,6 +246,217 @@ class RecipeService {
         }
 
     
+    func suggestRecipes(
+        query: String,
+        token: String,
+        completion: @escaping (Result<[RecipeSuggestion], Error>) -> Void
+    ) {
+        guard var components = URLComponents(string: "\(APIService.shared.baseURL)/api/recipes/suggest/search") else {
+            completion(.failure(NSError(domain: "", code: -1,
+                                        userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            return
+        }
+
+        
+        components.queryItems = [URLQueryItem(name: "query", value: query)]
+
+        guard let url = components.url else {
+            completion(.failure(NSError(domain: "", code: -1,
+                                        userInfo: [NSLocalizedDescriptionKey: "Invalid query URL"])))
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.timeoutInterval = 30.0
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Suggest network error: \(error.localizedDescription)")
+                    completion(.failure(error))
+                    return
+                }
+
+                if let httpResponse = response as? HTTPURLResponse {
+                    print("Suggest HTTP Status: \(httpResponse.statusCode)")
+                }
+
+                guard let data = data else {
+                    completion(.failure(NSError(domain: "", code: -1,
+                        userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                    return
+                }
+
+                if let str = String(data: data, encoding: .utf8) {
+                    print("Suggest Response Data: \(str)")
+                }
+
+                do {
+                    
+                    let suggestions = try JSONDecoder().decode([RecipeSuggestion].self, from: data)
+                    print("Decoded \(suggestions.count) recipe suggestions")
+                    completion(.success(suggestions))
+                } catch {
+                    print("Suggest decoding error: \(error.localizedDescription)")
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
+
+    func fetchRecipeById(
+        id: String,
+        token: String,
+        completion: @escaping (Result<Recipe, Error>) -> Void
+    ) {
+        guard let url = URL(string: "\(APIService.shared.baseURL)/api/recipes/\(id)") else {
+            completion(.failure(NSError(domain: "", code: -1,
+                                        userInfo: [NSLocalizedDescriptionKey: "Invalid recipe ID URL"])))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.timeoutInterval = 30.0
+        
+        print("FetchRecipeById Request → \(url.absoluteString)")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("FetchRecipeById Network Error: \(error.localizedDescription)")
+                    completion(.failure(error))
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print("FetchRecipeById HTTP Status: \(httpResponse.statusCode)")
+                }
+                
+                guard let data = data else {
+                    print("FetchRecipeById No Data")
+                    completion(.failure(NSError(domain: "", code: -1,
+                                                userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                    return
+                }
+                
+                if let raw = String(data: data, encoding: .utf8) {
+                    print("FetchRecipeById Raw Response: \(raw)")
+                }
+                
+                do {
+                    let recipe = try JSONDecoder().decode(Recipe.self, from: data)
+                    print("FetchRecipeById Decoded Recipe: \(recipe.title)")
+                    completion(.success(recipe))
+                } catch {
+                    print("FetchRecipeById Decoding Error: \(error.localizedDescription)")
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
+    
+    func getAllRecipes(completion: @escaping (Result<[Recipe], Error>) -> Void) {
+           guard let url = URL(string: "\(APIService.shared.baseURL)/api/recipes") else {
+               completion(.failure(NSError(domain: "", code: -1,
+                   userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+               return
+           }
+
+           var request = URLRequest(url: url)
+           request.httpMethod = "GET"
+           request.timeoutInterval = 60.0
+
+           URLSession.shared.dataTask(with: request) { data, response, error in
+               DispatchQueue.main.async {
+                   if let error = error {
+                       print("Network error: \(error.localizedDescription)")
+                       completion(.failure(error))
+                       return
+                   }
+
+                   if let httpResponse = response as? HTTPURLResponse {
+                       print("HTTP Status: \(httpResponse.statusCode)")
+                   }
+
+                   guard let data = data else {
+                       completion(.failure(NSError(domain: "", code: -1,
+                           userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                       return
+                   }
+
+                   if let str = String(data: data, encoding: .utf8) {
+                       print("Response Data: \(str)")
+                   }
+
+                   do {
+                       let recipes = try JSONDecoder().decode([Recipe].self, from: data)
+                       print("Decoded \(recipes.count) system recipes")
+                       completion(.success(recipes))
+                   } catch {
+                       print("Decoding error: \(error.localizedDescription)")
+                       completion(.failure(error))
+                   }
+               }
+           }.resume()
+       }
+    
+    func deleteRecipeById(
+        id: String,
+        token: String,
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        guard let url = URL(string: "\(APIService.shared.baseURL)/api/recipes/my-recipes/\(id)") else {
+            completion(.failure(NSError(domain: "", code: -1,
+                                        userInfo: [NSLocalizedDescriptionKey: "Invalid recipe ID URL"])))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.timeoutInterval = 30.0
+        
+        print("DeleteRecipeById Request → \(url.absoluteString)")
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("DeleteRecipeById Network Error: \(error.localizedDescription)")
+                    completion(.failure(error))
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    print("DeleteRecipeById HTTP Status: \(httpResponse.statusCode)")
+                }
+                
+                guard let data = data else {
+                    print("DeleteRecipeById No Data")
+                    completion(.failure(NSError(domain: "", code: -1,
+                                                userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                    return
+                }
+                
+                if let raw = String(data: data, encoding: .utf8) {
+                    print("DeleteRecipeById Raw Response: \(raw)")
+                }
+                
+                do {
+                    let result = try JSONDecoder().decode([String: String].self, from: data)
+                    let message = result["message"] ?? "Recipe deleted successfully"
+                    print("DeleteRecipeById Success: \(message)")
+                    completion(.success(message))
+                } catch {
+                    print("DeleteRecipeById Decoding Error: \(error.localizedDescription)")
+                    completion(.failure(error))
+                }
+            }
+        }.resume()
+    }
     
 }
 
