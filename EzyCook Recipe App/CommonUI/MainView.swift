@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     @State private var selectedTab = 0
-   
+    @EnvironmentObject var userVM: UserViewModel
     
     var body: some View {
         ZStack {
@@ -29,6 +29,10 @@ struct MainView: View {
                 HomeView(selectedTab: $selectedTab)
             }
             
+        }
+        
+        .onAppear {
+                   userVM.getProfile()
         }
     }
 }

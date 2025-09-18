@@ -133,7 +133,6 @@ struct FaceIDScreenView: View {
             }
             .navigationBarHidden(true)
             .fullScreenCover(isPresented: $navigateToHome) {
-            //    MainView()
                HomeView(selectedTab: $selectedTab)
                   .environmentObject(userVM)
                 
