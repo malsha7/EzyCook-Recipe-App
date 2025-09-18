@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @Binding var selectedTab: Int
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
-#Preview {
-    HomeView()
-}
+//#Preview {
+//    HomeView()
+//}

@@ -11,7 +11,7 @@ struct MyRecipesView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedRecipe: Recipe?
     @State private var showAddNewRecipe = false
-    
+    @Binding var selectedTab: Int
     @StateObject private var vm = RecipeViewModel()
     
    
@@ -131,6 +131,6 @@ struct MyRecipesView: View {
     }
 }
 
-#Preview {
-    MyRecipesView()
-}
+//#Preview {
+//    MyRecipesView()
+//}

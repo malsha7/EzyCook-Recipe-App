@@ -13,7 +13,7 @@ struct SelectToolsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var navigateToMealTime = false
     @State private var showAlert = false
-    
+    @Binding var selectedTab: Int
     @EnvironmentObject var vm : RecipeViewModel
     
     let availableTools = ["Microwave Oven", "Gas Cooker","Rice Cooker", "Hot Plate", "Air Fryer", "Hearth"]
@@ -144,6 +144,6 @@ struct SelectToolsView: View {
 }
 
 
-#Preview {
-    SelectToolsView()
-}
+//#Preview {
+//    SelectToolsView()
+//}
