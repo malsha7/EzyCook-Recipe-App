@@ -14,24 +14,6 @@ class UserService {
     static let shared = UserService()
     private init() {}
     
-    // auth token
-    var authToken: String? {
-        get {
-            if let data = KeychainHelper.shared.load(key: "auth_token") {
-                return String(data: data, encoding: .utf8)
-            }
-            return nil
-        }
-        set {
-            if let token = newValue {
-                let data = Data(token.utf8)
-                KeychainHelper.shared.save(key: "auth_token", data: data)
-            } else {
-                KeychainHelper.shared.delete(key: "auth_token")
-            }
-        }
-    }
-    
     
     // signup
     func signup(username: String, email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {

@@ -22,9 +22,26 @@ class UserViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     // auth token
+//    var authToken: String? {
+//        get { UserDefaults.standard.string(forKey: "auth_token") }
+//        set { UserDefaults.standard.set(newValue, forKey: "auth_token") }
+//    }
+    
     var authToken: String? {
-        get { UserDefaults.standard.string(forKey: "auth_token") }
-        set { UserDefaults.standard.set(newValue, forKey: "auth_token") }
+        get {
+            if let data = KeychainHelper.shared.load(key: "auth_token") {
+                return String(data: data, encoding: .utf8)
+            }
+            return nil
+        }
+        set {
+            if let token = newValue {
+                let data = Data(token.utf8)
+                KeychainHelper.shared.save(key: "auth_token", data: data)
+            } else {
+                KeychainHelper.shared.delete(key: "auth_token")
+            }
+        }
     }
     
     // signup

@@ -97,7 +97,7 @@ struct FavoritesListView: View {
                 FavoriteRecipeDetailsView(recipe: recipe)
             }
             .fullScreenCover(isPresented: $showMyRecipes) {
-               // MyRecipesView(selectedTab: $selectedTab)
+                MyRecipesView(selectedTab: $selectedTab)
             }
             
             .onAppear { loadFavorites() }
