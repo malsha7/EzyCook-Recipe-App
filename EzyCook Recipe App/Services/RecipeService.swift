@@ -28,7 +28,8 @@ class RecipeService {
         
         guard let url = URL(string: "\(APIService.shared.baseURL)/api/recipes/my-recipes") else {
             print("Invalid URL")
-            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            completion(.failure(NSError(domain: "", code: -1,
+            userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
             return
         }
         
@@ -122,7 +123,7 @@ class RecipeService {
     func getMyRecipes(token: String, completion: @escaping (Result<[Recipe], Error>) -> Void) {
             guard let url = URL(string: "\(APIService.shared.baseURL)/api/recipes/my-recipes") else {
                 completion(.failure(NSError(domain: "", code: -1,
-                    userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+                userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
                 return
             }
 
@@ -145,7 +146,7 @@ class RecipeService {
 
                     guard let data = data else {
                         completion(.failure(NSError(domain: "", code: -1,
-                            userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                        userInfo: [NSLocalizedDescriptionKey: "No data received"])))
                         return
                     }
 
@@ -187,7 +188,7 @@ class RecipeService {
         ) {
             guard let url = URL(string: "\(APIService.shared.baseURL)/api/recipes/filter") else {
                 completion(.failure(NSError(domain: "", code: -1,
-                    userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+                userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
                 return
             }
 
@@ -225,7 +226,7 @@ class RecipeService {
 
                     guard let data = data else {
                         completion(.failure(NSError(domain: "", code: -1,
-                            userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                        userInfo: [NSLocalizedDescriptionKey: "No data received"])))
                         return
                     }
 
@@ -253,7 +254,7 @@ class RecipeService {
     ) {
         guard var components = URLComponents(string: "\(APIService.shared.baseURL)/api/recipes/suggest/search") else {
             completion(.failure(NSError(domain: "", code: -1,
-                                        userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
             return
         }
 
@@ -262,7 +263,7 @@ class RecipeService {
 
         guard let url = components.url else {
             completion(.failure(NSError(domain: "", code: -1,
-                                        userInfo: [NSLocalizedDescriptionKey: "Invalid query URL"])))
+            userInfo: [NSLocalizedDescriptionKey: "Invalid query URL"])))
             return
         }
 
@@ -313,7 +314,7 @@ class RecipeService {
     ) {
         guard let url = URL(string: "\(APIService.shared.baseURL)/api/recipes/\(id)") else {
             completion(.failure(NSError(domain: "", code: -1,
-                                        userInfo: [NSLocalizedDescriptionKey: "Invalid recipe ID URL"])))
+            userInfo: [NSLocalizedDescriptionKey: "Invalid recipe ID URL"])))
             return
         }
         
@@ -339,7 +340,7 @@ class RecipeService {
                 guard let data = data else {
                     print("FetchRecipeById No Data")
                     completion(.failure(NSError(domain: "", code: -1,
-                                                userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                    userInfo: [NSLocalizedDescriptionKey: "No data received"])))
                     return
                 }
                 
@@ -411,7 +412,7 @@ class RecipeService {
     ) {
         guard let url = URL(string: "\(APIService.shared.baseURL)/api/recipes/my-recipes/\(id)") else {
             completion(.failure(NSError(domain: "", code: -1,
-                                        userInfo: [NSLocalizedDescriptionKey: "Invalid recipe ID URL"])))
+            userInfo: [NSLocalizedDescriptionKey: "Invalid recipe ID URL"])))
             return
         }
         
@@ -437,7 +438,7 @@ class RecipeService {
                 guard let data = data else {
                     print("DeleteRecipeById No Data")
                     completion(.failure(NSError(domain: "", code: -1,
-                                                userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                    userInfo: [NSLocalizedDescriptionKey: "No data received"])))
                     return
                 }
                 
