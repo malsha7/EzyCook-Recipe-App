@@ -19,6 +19,7 @@ struct SignInView: View {
     @State private var showSignUp = false
     @State private var showForgotPassword = false
     @State private var validationErrors: [String: String] = [:]
+    @State private var selectedTab: Int = 0
     
     @EnvironmentObject var userVM: UserViewModel
     @EnvironmentObject var vm : RecipeViewModel
@@ -190,7 +191,7 @@ struct SignInView: View {
             Text(alertMessage)
         }
         .fullScreenCover(isPresented: $showHome) {
-            SelectToolsView()
+            SelectToolsView(selectedTab: $selectedTab)
                 .environmentObject(vm)
     //        MyRecipesView()
 //            HomeView()
