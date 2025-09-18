@@ -197,7 +197,9 @@ struct SignInView: View {
                .environmentObject(userVM)
         }
         .fullScreenCover(isPresented: $showFaceID) {
-            FaceIDScreenView()
+            FaceIDScreenView(onSuccess: {
+                showHome = true   
+            })
         }
         .fullScreenCover(isPresented: $showSignUp) {
             SignUpView()

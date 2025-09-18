@@ -20,7 +20,7 @@ struct FaceIDScreenView: View {
     @State private var showSuccessAlert = false
     @State private var scanningAnimation = false
     @State private var selectedTab: Int = 0
-    
+    var onSuccess: () -> Void = {}
     
     
     @EnvironmentObject var userVM: UserViewModel
@@ -132,11 +132,11 @@ struct FaceIDScreenView: View {
                 }
             }
             .navigationBarHidden(true)
-            .fullScreenCover(isPresented: $navigateToHome) {
-               HomeView(selectedTab: $selectedTab)
-                  .environmentObject(userVM)
-                
-            }
+//            .fullScreenCover(isPresented: $navigateToHome) {
+//               HomeView(selectedTab: $selectedTab)
+//                  .environmentObject(userVM)
+//                
+//            }
         }
         .onAppear {
             animationScale = 1.1
@@ -153,7 +153,10 @@ struct FaceIDScreenView: View {
             Text(authenticationError ?? "Unknown error occurred")
         }
         .alert("Authentication Successful", isPresented: $showSuccessAlert) {
-            Button("Continue") { navigateToHome = true }
+            Button("Continue") {
+                onSuccess()
+               // navigateToHome = true
+            }
         } message: {
             Text("Face ID authentication completed successfully!")
         }
@@ -225,7 +228,7 @@ struct FaceIDScreenView: View {
         
         userVM.getProfile()
         
-        
+        onSuccess()
         showSuccessAlert = true
         
     }
