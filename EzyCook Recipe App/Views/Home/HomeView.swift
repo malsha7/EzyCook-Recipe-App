@@ -32,21 +32,21 @@ struct HomeView: View {
 
                         HStack {
                             HStack(spacing: 10) {
-                                if let url = userVM.profile?.displayImageURL {
-                                    AsyncImage(url: url) { image in
-                                        image.resizable().scaledToFill()
-                                    } placeholder: {
-                                        ProgressView()
-                                            .progressViewStyle(CircularProgressViewStyle(tint: .appWhite))
-                                            .frame(width: 36, height: 36)
-                                    }
-                                    .frame(width: 36, height: 36)
-                                    .clipShape(Circle())
-                                    .overlay(Circle().stroke(Color.appWhite.opacity(0.3), lineWidth: 1))
+                            if let url = userVM.profile?.displayImageURL {
+                            AsyncImage(url: url) { image in
+                            image.resizable().scaledToFill()
+                            } placeholder: {
+                            ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .appWhite))
+                            .frame(width: 36, height: 36)
+                            }
+                            .frame(width: 36, height: 36)
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.appWhite.opacity(0.3), lineWidth: 1))
                                 } else {
                                     Image(systemName: "person.circle.fill")
-                                        .font(.system(size: 36))
-                                        .foregroundColor(.appWhite)
+                                    .font(.system(size: 36))
+                                    .foregroundColor(.appWhite)
                                 }
 
                                 Text("Good Morning!")
@@ -59,8 +59,8 @@ struct HomeView: View {
                                 Button(action: { showNotifications = true }) {
                                     ZStack(alignment: .topTrailing) {
                                         Image(systemName: "bell")
-                                            .foregroundColor(.appWhite)
-                                            .font(.system(size: 24))
+                                        .foregroundColor(.appWhite)
+                                        .font(.system(size: 24))
 
                                         let todayCount = calendarManager.reminders.filter {
                                             Calendar.current.isDateInToday($0.date)
@@ -103,14 +103,14 @@ struct HomeView: View {
                         VStack(spacing: 6) {
                             HStack(spacing: 10) {
                                 Image(systemName: "magnifyingglass")
-                                    .foregroundColor(.appWhite.opacity(0.8))
-                                    .frame(width: 18, height: 18)
+                                .foregroundColor(.appWhite.opacity(0.8))
+                                .frame(width: 18, height: 18)
 
                                 ZStack(alignment: .leading) {
                                     if searchText.isEmpty {
                                         Text("Search Your Recipe")
-                                            .foregroundColor(.appWhite.opacity(0.7))
-                                            .font(.sfProRoundedRegular(size: 16))
+                                        .foregroundColor(.appWhite.opacity(0.7))
+                                        .font(.sfProRoundedRegular(size: 16))
                                     }
                                     TextField("", text: $searchText)
                                         .foregroundColor(.appWhite)
@@ -124,7 +124,7 @@ struct HomeView: View {
                             .frame(maxWidth: .infinity)
                             .background(
                                 RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color.appWhite.opacity(0.25))
+                                .fill(Color.appWhite.opacity(0.25))
                             )
 
                             if !vm.suggestedRecipes.isEmpty {
@@ -195,7 +195,7 @@ struct HomeView: View {
                                                         .fill(Color.appWhite.opacity(0.25))
                                                         .overlay(
                                                             RoundedRectangle(cornerRadius: 12)
-                                                                .stroke(Color.appWhite.opacity(0.4), lineWidth: 1)
+                                                            .stroke(Color.appWhite.opacity(0.4), lineWidth: 1)
                                                         )
                                                 )
                                         }
@@ -257,7 +257,7 @@ struct HomeView: View {
 
                 NavigationLink(
                     destination: vm.selectedRecipe.map { RecipeDetailsView(recipe: $0)
-                            .navigationBarBackButtonHidden(true)
+                    .navigationBarBackButtonHidden(true)
                     },
                     isActive: $navigateToDetails,
                     label: { EmptyView() }
@@ -265,7 +265,7 @@ struct HomeView: View {
                 
                 NavigationLink(
                     destination: SelectToolsView(selectedTab: $selectedTab)
-                        .navigationBarBackButtonHidden(false),
+                    .navigationBarBackButtonHidden(false),
                     isActive: $navigateToTools,
                     label: { EmptyView() }
                 )
