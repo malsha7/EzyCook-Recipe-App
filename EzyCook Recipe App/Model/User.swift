@@ -28,4 +28,28 @@ struct UserProfile: Decodable {
     var name: String?
     var phoneNumber: String?
     var profileImage: String?
+    
+    var displayImageURL: URL? {
+        guard let image = profileImage?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !image.isEmpty else {
+            print("displayImageURL: imageUrl is empty or nil")
+            return nil
+        }
+        
+        if image.hasPrefix("http") {
+            let url = URL(string: image)
+            print("displayImageURL (system): \(url?.absoluteString ?? "invalid URL")")
+            return url
+        } else {
+            let path = image.hasPrefix("/") ? String(image.dropFirst()) : image
+            let fullURL = "https://ezycook.duckdns.org/\(path)"
+            let encodedURL = fullURL.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
+            let url = encodedURL.flatMap { URL(string: $0) }
+            print("displayImageURL (user-uploaded): \(url?.absoluteString ?? "invalid URL")")
+            return url
+        }
+    }
+    
+    
+    
 }
